@@ -22,7 +22,12 @@ fastify.ready(async (err) => {
   await testS3Connection();
 });
 
-fastify.listen({ port: 3000 }, (err, address) => {
+let port = process.env.PORT;
+if (port == null || port == "") {
+  port = 3000;
+}
+
+fastify.listen({ port: port }, (err, address) => {
   if (err) {
     fastify.log.error(err);
     process.exit(1);
