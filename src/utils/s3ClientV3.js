@@ -19,11 +19,12 @@ const testS3Connection = async () => {
   }
 };
 
-const s3UploadFile = async (fileContent, fileName) => {
+const s3UploadFile = async (fileContent, fileName, metadata) => {
   const params = {
     Bucket: process.env.S3_BUCKET,
     Key: fileName,
     Body: fileContent,
+    Metadata: metadata
   };
 
   try {
@@ -57,7 +58,7 @@ const downloadFileFromS3 = async (key) => {
     }
   };
 
-const getFilesFromS3 = async () => {
+const listFilesFromS3 = async () => {
     const command = new ListObjectsV2Command({
         Bucket: process.env.S3_BUCKET,
         MaxKeys: 50,
@@ -83,5 +84,33 @@ const getFilesFromS3 = async () => {
     throw error;
 }
 };
+
+const getMetadataFromS3 = async (contents) => {
+  const client = new S3Client({ region: process.env.AWS_REGION });
+
+  for (const content of contents) {
+    const headCommand = new HeadObjectCommand({
+      Bucket: process.env.S3_BUCKET,
+      Key: content.Key,
+    });
+
+    const headData = await client.send(headCommand);
+    content.Metadata = headData.Metadata;
+  }
+
+  return contents;
+};
+
+const getFilesFromS3 = async () => {
+  try {
+    const contents = await listFilesFromS3();
+    const contentsWithMetadata = await getMetadataFromS3(contents);
+    return contentsWithMetadata;
+  } catch (error) {
+    console.error('Failed to get files from S3:', error);
+    throw error;
+  }
+};
+
 
 export { testS3Connection, s3UploadFile, downloadFileFromS3, getFilesFromS3 };
