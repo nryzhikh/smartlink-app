@@ -86,8 +86,6 @@ const listFilesFromS3 = async () => {
 };
 
 const getMetadataFromS3 = async (contents) => {
-  const client = new S3Client({ region: process.env.AWS_REGION });
-
   for (const content of contents) {
     const headCommand = new HeadObjectCommand({
       Bucket: process.env.S3_BUCKET,
