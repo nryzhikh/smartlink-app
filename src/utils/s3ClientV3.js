@@ -1,4 +1,4 @@
-import { S3Client, ListBucketsCommand, PutObjectCommand, GetObjectCommand, ListObjectsV2Command } from "@aws-sdk/client-s3";
+import { S3Client, ListBucketsCommand, PutObjectCommand, GetObjectCommand, ListObjectsV2Command, HeadObjectCommand } from "@aws-sdk/client-s3";
 
 const client = new S3Client({
   region: process.env.S3_REGION,
