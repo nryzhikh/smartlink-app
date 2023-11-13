@@ -22,9 +22,18 @@ fastify.ready(async (err) => {
   await testS3Connection();
 });
 
+// fastify.listen({ port: 3000 }, (err, address) => {
+//   if (err) {
+//     fastify.log.error(err);
+//     process.exit(1);
+//   }
+//   console.log(`Server listening on ${address}`);
+// });
+
+
 const port = process.env.PORT || 3000; // 3000 or any other default value
 
-fastify.listen(port, '0.0.0.0', (err, address) => {
+  fastify.listen({port: port, host: '0.0.0.0'}, (err, address) => {
   if (err) {
     fastify.log.error(err);
     process.exit(1);
