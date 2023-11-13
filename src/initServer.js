@@ -9,6 +9,7 @@ import getData from './routes/getData.js';
 import ejs from 'ejs';
 import downloadFile from './routes/downloadFile.js';
 import fetchData from './routes/fetchData.js';
+import cors from '@fastify/cors'
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -22,6 +23,9 @@ const initServer = (fastify) => {
   fastify.register(getData);
   fastify.register(downloadFile);
   fastify.register(fetchData);
+  fastify.register(cors, {
+    origin: '*',
+  })
 
   fastify.register(view, {
     engine: {
