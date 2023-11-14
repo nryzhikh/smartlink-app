@@ -8,6 +8,8 @@ const __dirname = dirname(__filename);
 
 async function populateHtmlTemplate(data) {
 
+    console.log(data);
+
     // Read the HTML template
     let htmlContent = await fs.promises.readFile(
         path.join(__dirname, '../templates/templateIndex.html'),
