@@ -12,7 +12,7 @@ async function formProcessor(fastify, options) {
             const zipContent = await createZipFile(populatedHtml);
             const shortId = uuidv4().split('-')[0]; // This will give you the first part of the UUID, which is 8 characters long
             const date = new Date().toISOString().split('T')[0]; // This will give you the current date in the format YYYY-MM-DD
-            const fileName = `${date}-${shortId}.zip`;
+            const fileName = `files/${date}-${shortId}.zip`;
             const metadata = {
                 sl_name: formFields.sl_name,
                 android_dp: formFields.android_dp,
