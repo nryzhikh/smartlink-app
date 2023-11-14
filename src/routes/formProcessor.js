@@ -18,7 +18,7 @@ async function formProcessor(fastify, options) {
                 android_dp: formFields.android_dp,
                 ios_dp: formFields.ios_dp,
                 web_link_desk: formFields.web_link_desk,
-                need_web: formFields.need_web,
+                need_web: formFields.need_web.toString(),
 
             };
 
